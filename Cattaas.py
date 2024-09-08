@@ -16,6 +16,11 @@ def load_image(url):
 
         # Открываем изображение с помощью PIL
         img = Image.open(image_data)# img локальная, сокращение от имедж
+        # Изменяем размер изображения чтобы была видна кнопка
+        img.thumbnail((600, 480), Image.Resampling.LANCZOS)
+        # Image.Resampling.LANCZOS- принцип, по которому будет уменьшаться изображение,
+        # чтобы не было большой потери качества
+
 
         return ImageTk.PhotoImage(img)# функция вернет img и положит ниже в img = load_image(url)
     except Exception as e:
