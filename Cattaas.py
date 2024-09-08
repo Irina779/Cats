@@ -28,6 +28,13 @@ def load_image(url):
         return None # если все хорошо, вернет изображение, если плохо ничего не #вернет
 
 def open_new_window():# открыть новое окно
+    tag = tag_entry.get()# то что ввел пользователь
+    # самый простой способ склейки f строки. Если поле ввода пустое то
+    # 'https://cataas.com/cat' (без последнего слеша)
+    url_with_tag = f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
+    img = load_image(url_with_tag)
+
+
     img = load_image(url)
     if img:
         # Создаем новое вторичное окно
@@ -53,6 +60,17 @@ window.title("Cats!")# назвавние
 window.geometry("600x520")# размер
 
 
+# Поле ввода для тегов
+tag_entry = Entry()# имя нужно дать обязательно иначе не смножем считать
+tag_entry.pack()
+
+# Кнопка для загрузки изображения с тегом (с текстом)
+load_button = Button(text="Загрузить по тегу", command=open_new_window)
+load_button.pack()
+
+
+
+
 
 # Добавляем кнопку для обновления изображения, после добавления меню
 # она будет не нужна, закомментируем
@@ -76,8 +94,6 @@ file_menu.add_command(label="Выход", command=exit)
 
 url = 'https://cataas.com/cat'# адрес в интернете, по которому будем искать
 # Вызываем функцию для установки изображения в метку
-set_image()# чтобы появилась первая картинка при запуске проекта
-
 
 
 window.mainloop()
