@@ -27,12 +27,21 @@ def load_image(url):
         print(f"Ошибка при загрузке изображения: {e}")
         return None # если все хорошо, вернет изображение, если плохо ничего не #вернет
 
-def set_image():
-    # Вызываем функцию для загрузки изображения
+def open_new_window():# открыть новое окно
     img = load_image(url)
-
     if img:
-        # Устанавливаем изображение в метку
+        # Создаем новое вторичное окно
+        new_window = Toplevel()# Toplevel-высший уровень
+        new_window.title("Картинка с котиком")
+        new_window.geometry("600x480")
+
+        # Добавляем изображение в новое окно
+        label = Label(new_window, image=img)
+        label.image = img  # Сохраняем ссылку на изображение
+        label.pack()
+
+
+    # Устанавливаем изображение в метку
         label.config(image=img)
         label.image = img
 def exit():
@@ -43,9 +52,7 @@ window = Tk()# создаем главное окно
 window.title("Cats!")# назвавние
 window.geometry("600x520")# размер
 
-# Создаем метку без изображения
-label = Label()
-label.pack()# размещаем
+
 
 # Добавляем кнопку для обновления изображения, после добавления меню
 # она будет не нужна, закомментируем
@@ -60,7 +67,7 @@ window.config(menu=menu_bar)
 # Добавляем пункты меню
 file_menu = Menu(menu_bar, tearoff=0)# чтобы меню не отклеивалась
 menu_bar.add_cascade(label="Файл", menu=file_menu)
-file_menu.add_command(label="Загрузить фото", command=set_image)
+file_menu.add_command(label="Загрузить фото", command=open_new_window)
 file_menu.add_separator()
 file_menu.add_command(label="Выход", command=exit)
 
